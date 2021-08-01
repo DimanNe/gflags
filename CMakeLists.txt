@@ -570,29 +570,29 @@ if (INSTALL_HEADERS)
   endif ()
 endif ()
 
-if (PKGCONFIG_INSTALL_DIR)
-  configure_file ("cmake/package.pc.in" "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}.pc" @ONLY)
-  install (FILES "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}.pc" DESTINATION "${PKGCONFIG_INSTALL_DIR}")
-endif ()
+#if (PKGCONFIG_INSTALL_DIR)
+#  configure_file ("cmake/package.pc.in" "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}.pc" @ONLY)
+#  install (FILES "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}.pc" DESTINATION "${PKGCONFIG_INSTALL_DIR}")
+#endif ()
 
 # ----------------------------------------------------------------------------
 # support direct use of build tree
 set (INSTALL_PREFIX_REL2CONFIG_DIR .)
-export (
-  TARGETS ${TARGETS}
-  NAMESPACE ${PACKAGE_NAME}::
-  FILE "${PROJECT_BINARY_DIR}/${EXPORT_NAME}.cmake"
-)
-export (
-  TARGETS ${TARGETS}
-  FILE "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-nonamespace-targets.cmake"
-)
-if (REGISTER_BUILD_DIR)
-  export (PACKAGE ${PACKAGE_NAME})
-endif ()
-if (REGISTER_INSTALL_PREFIX)
-  register_gflags_package(${CONFIG_INSTALL_DIR})
-endif ()
+#export (
+#  TARGETS ${TARGETS}
+#  NAMESPACE ${PACKAGE_NAME}::
+#  FILE "${PROJECT_BINARY_DIR}/${EXPORT_NAME}.cmake"
+#)
+#export (
+#  TARGETS ${TARGETS}
+#  FILE "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-nonamespace-targets.cmake"
+#)
+#if (REGISTER_BUILD_DIR)
+#  export (PACKAGE ${PACKAGE_NAME})
+#endif ()
+#if (REGISTER_INSTALL_PREFIX)
+#  register_gflags_package(${CONFIG_INSTALL_DIR})
+#endif ()
 configure_file (cmake/config.cmake.in "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-config.cmake" @ONLY)
 
 # ----------------------------------------------------------------------------
@@ -692,11 +692,11 @@ if (BUILD_PACKAGING)
         OUTPUT_VARIABLE CPACK_PACKAGE_ARCHITECTURE
       )
       if (RV EQUAL 0)
-	      string (STRIP "${CPACK_PACKAGE_ARCHITECTURE}" CPACK_PACKAGE_ARCHITECTURE)
+         string (STRIP "${CPACK_PACKAGE_ARCHITECTURE}" CPACK_PACKAGE_ARCHITECTURE)
       else ()
         execute_process (COMMAND uname -m OUTPUT_VARIABLE CPACK_PACKAGE_ARCHITECTURE)
         if (CPACK_PACKAGE_ARCHITECTURE MATCHES "x86_64")
-	        set (CPACK_PACKAGE_ARCHITECTURE amd64)
+           set (CPACK_PACKAGE_ARCHITECTURE amd64)
         else ()
           set (CPACK_PACKAGE_ARCHITECTURE i386)
         endif ()
